@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:asosa_delivery/features/cart/cart_screen.dart';
 
 class FoodDetailScreen extends StatefulWidget {
   const FoodDetailScreen({super.key});
@@ -19,6 +20,10 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const int unitPriceBirr = 30; // price per item
+    const int originalUnitPriceBirr = 170; // original price per item
+    final int totalPriceBirr = unitPriceBirr * quantity;
+    final int totalOriginalBirr = originalUnitPriceBirr * quantity;
     final ColorScheme scheme = Theme.of(context).colorScheme;
     return Scaffold(
       backgroundColor: scheme.surface,
@@ -62,7 +67,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Bottegea’s Fried Rice',
+                  'Cheese Burger',
                   style: Theme.of(context)
                       .textTheme
                       .headlineSmall
@@ -80,7 +85,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                 Row(
                   children: [
                     Text(
-                      'Rp129.000',
+                      "$totalPriceBirr birr",
                       style: Theme.of(context)
                           .textTheme
                           .titleLarge
@@ -88,7 +93,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      'Rp170.000',
+                      '$totalOriginalBirr birr',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             decoration: TextDecoration.lineThrough,
                             color: scheme.onSurfaceVariant,
@@ -145,6 +150,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                 ),
                 const SizedBox(height: 20),
                 // Quantity selector
+
                 Row(
                   children: [
                     Text('Quantity',
@@ -157,7 +163,15 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                       icon: Icons.remove,
                       onTap: () {
                         setState(() {
-                          if (quantity > 1) quantity -= 1;
+                          if (quantity > 1) {
+                            quantity -= 1;
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text("Quantity can't be less than 1")),
+                            );
+                          }
                         });
                       },
                     ),
@@ -191,7 +205,11 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
         child: SizedBox(
           width: double.infinity,
           child: FilledButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const CartScreen()),
+              );
+            },
             child: const Text('Add to cart'),
           ),
         ),

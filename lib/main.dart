@@ -1,5 +1,6 @@
-import "package:asosa_delivery/core/utils/helper.dart";
 import "package:asosa_delivery/features/home/home_screen.dart";
+import "package:asosa_delivery/features/cart/cart_screen.dart";
+import "package:asosa_delivery/features/profile/profile_screen.dart";
 import "package:asosa_delivery/features/restaurant/restaurant_screen.dart";
 import "package:flutter/material.dart";
 
@@ -29,7 +30,54 @@ class AsosaDeliveryApp extends StatelessWidget {
       theme: baseLight,
       darkTheme: baseDark,
       themeMode: ThemeMode.system,
-      home: const RestaurantDetailsScreen(),
+      home: const MainNav(),
+    );
+  }
+}
+
+class MainNav extends StatefulWidget {
+  const MainNav({super.key});
+
+  @override
+  State<MainNav> createState() => _MainNavState();
+}
+
+class _MainNavState extends State<MainNav> {
+  int _currentIndex = 0;
+
+  final List<Widget> _tabs = const [
+    Home(),
+    CartScreen(),
+    RestaurantDetailsScreen(),
+    ProfileScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _tabs[_currentIndex],
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _currentIndex,
+        onDestinationSelected: (i) => setState(() => _currentIndex = i),
+        destinations: const [
+          NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: 'Home'),
+          NavigationDestination(
+              icon: Icon(Icons.shopping_cart_outlined),
+              selectedIcon: Icon(Icons.shopping_cart),
+              label: 'Cart'),
+          NavigationDestination(
+              icon: Icon(Icons.restaurant_menu_outlined),
+              selectedIcon: Icon(Icons.restaurant_menu),
+              label: 'Restaurant'),
+          NavigationDestination(
+              icon: Icon(Icons.person_outline),
+              selectedIcon: Icon(Icons.person),
+              label: 'Account'),
+        ],
+      ),
     );
   }
 }
