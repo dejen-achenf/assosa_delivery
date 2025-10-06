@@ -1,5 +1,6 @@
 import "package:asosa_delivery/core/utils/helper.dart";
 import "package:asosa_delivery/features/home/home_screen.dart";
+import "package:asosa_delivery/features/restaurant/restaurant_screen.dart";
 import "package:flutter/material.dart";
 
 void main() {
@@ -28,7 +29,7 @@ class AsosaDeliveryApp extends StatelessWidget {
       theme: baseLight,
       darkTheme: baseDark,
       themeMode: ThemeMode.system,
-      home: const NearMeScreen(),
+      home: const RestaurantDetailsScreen(),
     );
   }
 }
