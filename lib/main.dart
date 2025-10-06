@@ -1,3 +1,4 @@
+import "package:asosa_delivery/core/utils/helper.dart";
 import "package:asosa_delivery/features/home/home_screen.dart";
 import "package:flutter/material.dart";
 
@@ -27,7 +28,7 @@ class AsosaDeliveryApp extends StatelessWidget {
       theme: baseLight,
       darkTheme: baseDark,
       themeMode: ThemeMode.system,
-      home: const Home(),
+      home: const NearMeScreen(),
     );
   }
 }
