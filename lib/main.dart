@@ -2,6 +2,7 @@ import "package:asosa_delivery/features/home/home_screen.dart";
 import "package:asosa_delivery/features/cart/cart_screen.dart";
 import "package:asosa_delivery/features/profile/profile_screen.dart";
 import "package:asosa_delivery/features/restaurant/restaurant_screen.dart";
+import "package:asosa_delivery/providers/cart_provider.dart";
 import "package:flutter/material.dart";
 
 void main() {
@@ -55,7 +56,10 @@ class _MainNavState extends State<MainNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _tabs[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _tabs,
+      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,
         onDestinationSelected: (i) => setState(() => _currentIndex = i),
